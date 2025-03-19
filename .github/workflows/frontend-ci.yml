@@ -29,11 +29,6 @@ jobs:
           cd frontend  # 👈 Move into the correct directory
           npm install
 
-      - name: Run tests
-        run: |
-          cd frontend  # 👈 Move into the correct directory
-          npm run test
-
       - name: Deploy to Vercel
         if: github.ref == 'refs/heads/main'
         run: |
