@@ -9,9 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend # 👈 Ensures all commands run inside the frontend folder
 
     steps:
       - name: Checkout repository
@@ -22,20 +19,24 @@ jobs:
         with:
           node-version: 18
           cache: "npm"
-          cache-dependency-path: frontend/package-lock.json # 👈 Corrected path to package-lock.json
+          cache-dependency-path: frontend/package-lock.json # 👈 Correct path
 
       - name: Verify package-lock.json exists
-        run: ls -la
-        working-directory: frontend # 👈 Check if package-lock.json is present
+        run: ls -la frontend # 👈 Check if package-lock.json is inside frontend
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd frontend  # 👈 Move into the correct directory
+          npm install
 
       - name: Run tests
-        run: npm run test
+        run: |
+          cd frontend  # 👈 Move into the correct directory
+          npm run test
 
       - name: Deploy to Vercel
         if: github.ref == 'refs/heads/main'
         run: |
+          cd frontend  # 👈 Move into the correct directory
           npm install -g vercel
           vercel --token ${{ secrets.VERCEL_TOKEN }} --prod
