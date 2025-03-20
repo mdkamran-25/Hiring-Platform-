@@ -38,7 +38,6 @@ export default function Home() {
             Read our docs
           </a>
         </div>
-        <div className="w-40 h-10 bg-amber-900 border-amber-50"></div>
       </main>
     </div>
   );
